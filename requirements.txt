@@ -1,6 +1,6 @@
+chainlit
 google-generativeai
 python-dotenv
-chainlit
+pandas 
 faker
-gunicorn==20.1.0
-pandas
+pydantic==2.10.1 
