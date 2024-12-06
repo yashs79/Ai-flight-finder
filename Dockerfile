@@ -14,4 +14,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Command to run the Chainlit application
+# CMD ["chainlit", "run", "app.py", "--host", "localhost", "--port", "5000"]  ##this can be done too
 CMD ["chainlit", "run", "app.py", "--host", "0.0.0.0", "--port", "5000"]
