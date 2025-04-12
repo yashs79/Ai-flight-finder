@@ -7,6 +7,9 @@ import chainlit as cl
 import asyncio
 import logging
 from datetime import datetime, timedelta
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 logging.basicConfig(level=logging.DEBUG)
 
 # Load environment variables
@@ -15,11 +18,29 @@ load_dotenv()
 # Configure port for Railway
 PORT = int(os.getenv('PORT', 8000))
 
+# Initialize FastAPI
+app = FastAPI()
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Configure Gemini
 genai.configure(api_key="AIzaSyDM_a8Cp6_m9MFk_8H0e8xaBMbHbMK4tgs")
 
 # Initialize the flight data service
 flight_service = FlightDataService()
+
+# FastAPI routes
+@app.get("/")
+async def health_check():
+    return {"status": "healthy", "message": "Flight Finder AI is running"}
+
 system_message="""
             You are a helpful technical flight support assistant. Your role is to assist users in finding flight details in a clear and easy-to-read format. When flight details are found, format the information in a readable table with the following columns:
             - FlightNumber

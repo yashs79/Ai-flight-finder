@@ -5,3 +5,10 @@ chainlit==0.7.700
 asyncio==3.4.3
 amadeus==9.0.0
 gunicorn==21.2.0
+idna>=2.8,<4
+sniffio>=1.1.0,<2
+httpcore>=0.15.0,<0.18.0
+httpx>=0.24.1
+typing-extensions>=4.5.0
+fastapi>=0.100.0
+uvicorn>=0.23.0
