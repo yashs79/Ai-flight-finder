@@ -9,7 +9,11 @@ import logging
 from datetime import datetime, timedelta
 logging.basicConfig(level=logging.DEBUG)
 
+# Load environment variables
 load_dotenv()
+
+# Configure port for Railway
+PORT = int(os.getenv('PORT', 8000))
 
 # Configure Gemini
 genai.configure(api_key="AIzaSyDM_a8Cp6_m9MFk_8H0e8xaBMbHbMK4tgs")
