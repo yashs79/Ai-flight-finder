@@ -26,7 +26,7 @@ EXPOSE $PORT
 
 # Create an entrypoint script
 RUN echo '#!/bin/bash
-chainlit run app.py --host 0.0.0.0 --port $PORT' > /app/entrypoint.sh \
+python -m chainlit run app.py --host 0.0.0.0 --port $PORT' > /app/entrypoint.sh \
     && chmod +x /app/entrypoint.sh
 
 # Use the entrypoint script
