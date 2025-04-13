@@ -18,8 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application files
 COPY . .
 
-# Expose the default Chainlit port
-EXPOSE 8001
+# Expose the port (will be overridden by Railway)
+EXPOSE ${PORT:-8001}
 
 # Command to run the Chainlit application
-CMD ["chainlit", "run", "app.py", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["chainlit", "run", "app.py", "--host", "0.0.0.0", "--port", "${PORT:-8001}"]

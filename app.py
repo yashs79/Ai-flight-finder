@@ -30,8 +30,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Get API keys from environment variables
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+if not GOOGLE_API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
+
 # Configure Gemini
-genai.configure(api_key="AIzaSyDM_a8Cp6_m9MFk_8H0e8xaBMbHbMK4tgs")
+genai.configure(api_key=GOOGLE_API_KEY)
 
 # Initialize the flight data service
 flight_service = FlightDataService()
@@ -135,9 +140,16 @@ async def CallGemini(query):
             # Extract filters from query
             query_lower = query.lower()
             
+            # Initialize flight_info variable at the start
+            flight_info = ""
+            
             # Extract origin and destination
             origin = "Delhi" if "delhi" in query_lower else None
             destination = "Mumbai" if "mumbai" in query_lower else None
+            
+            # Validate origin and destination
+            if not origin or not destination:
+                return "Please specify both origin and destination cities. For example: 'Show me flights from Delhi to Mumbai'"
             
             # Extract price filter
             max_price = None
