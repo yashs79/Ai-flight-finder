@@ -214,6 +214,9 @@ async def CallGemini(query):
                         filtered_flights = [f for f in filtered_flights 
                             if int(f['DepartureTime'].split(':')[0]) >= 17]
                 
+                # Initialize flight_info variable
+                flight_info = ""
+                
                 if not filtered_flights:
                     price_msg = f"under ₹{max_price:,.0f}" if max_price else ""
                     flight_info = f"\nNo flights found {price_msg} for this route and date."
@@ -233,11 +236,8 @@ async def CallGemini(query):
                         # Format price with thousand separator
                         price = "{:,.0f}".format(flight['Price'])
                         
-                        # Build the row
-                        flight_info += f"| {flight['Airline']} | {flight['FlightNumber']} | "
-                        flight_info += f"{dep_time} | "
-                        flight_info += f"{flight['Duration']} | "
-                        flight_info += f"₹{price} |\n"
+                        # Add formatted row to flight info
+                        flight_info += f"| {flight['Airline']} | {flight['FlightNumber']} | {dep_time} | {flight['Duration']} | ₹{price} |\n"
                     
                     # Build filter message
                     filters = []
