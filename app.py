@@ -143,9 +143,22 @@ async def CallGemini(query):
             # Initialize flight_info variable at the start
             flight_info = ""
             
-            # Extract origin and destination
-            origin = "Delhi" if "delhi" in query_lower else None
-            destination = "Mumbai" if "mumbai" in query_lower else None
+            # Extract origin and destination from all supported cities
+            supported_cities = ["bangalore", "delhi", "mumbai", "chennai", "kolkata", "hyderabad", "pune", "jaipur"]
+            
+            # Find origin city
+            origin = None
+            for city in supported_cities:
+                if f"from {city}" in query_lower or f"origin {city}" in query_lower:
+                    origin = city.capitalize()
+                    break
+            
+            # Find destination city
+            destination = None
+            for city in supported_cities:
+                if f"to {city}" in query_lower or f"destination {city}" in query_lower:
+                    destination = city.capitalize()
+                    break
             
             # Validate origin and destination
             if not origin or not destination:
